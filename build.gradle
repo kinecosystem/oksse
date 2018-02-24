@@ -1,7 +1,4 @@
 apply plugin: 'java'
-apply plugin: 'maven'
-
-group = 'com.here.oksse'
 
 description = """OkSse"""
 

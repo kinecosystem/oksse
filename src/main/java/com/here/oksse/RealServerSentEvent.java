@@ -96,6 +96,7 @@ class RealServerSentEvent implements ServerSentEvent {
         //noinspection StatementWithEmptyBody
         while (call != null && !call.isCanceled() && sseReader.read()) {
         }
+        sseReader.close();
     }
 
     private void notifyFailure(Throwable throwable, Response response) {
@@ -161,9 +162,6 @@ class RealServerSentEvent implements ServerSentEvent {
     public void close() {
         if (call != null) {
             call.cancel();
-        }
-        if (sseReader != null) {
-            sseReader.close();
         }
         synchronized (this) {
             listener = null;

@@ -75,10 +75,14 @@ class RealServerSentEvent implements ServerSentEvent {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                if (response.isSuccessful()) {
-                    openSse(response);
-                } else {
-                    notifyFailure(new IOException(response.message()), response);
+                try {
+                    if (response.isSuccessful()) {
+                        openSse(response);
+                    } else {
+                        notifyFailure(new IOException(response.message()), response);
+                    }
+                } finally {
+                    response.close();
                 }
             }
         });
